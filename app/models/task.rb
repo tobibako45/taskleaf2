@@ -10,7 +10,7 @@ class Task < ApplicationRecord
   private
 
   # カンマではなく名前を検証する
-  def validate_name_not_comma
+  def validate_name_not_including_comma
     # カンマが含まれているかをinclude?でチェック。
     # &.でnameがnilのときには検証が通る(errors.addしない)ようにしている
     errors.add(:name, 'カンマを含めることはできません') if name&.include?(',')
