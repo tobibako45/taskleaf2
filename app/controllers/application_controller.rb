@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  # helper_method指定することで、すべてのビューからも使える
+  # helper_method指定することで、すべてのビューからも使える。コントローラー内のメソッドをビュー内から呼びたい時とかに使う
   helper_method :current_user
 
   private

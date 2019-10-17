@@ -3,7 +3,7 @@ class SessionController < ApplicationController
   end
 
   def create
-    user = User.find_by(session_params[:email])
+    user = User.find_by(email: session_params[:email])
 
     # &. ぼっち演算子 xxxがnilでないときにメソッドyyyを呼び出す。
 
@@ -16,6 +16,12 @@ class SessionController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    # session内の情報すべて削除。個別の場合は session.delete(:user_id)
+    reset_session
+    redirect_to root_path, notice: 'ログアウトしました'
   end
 
   private
