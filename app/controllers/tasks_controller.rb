@@ -3,7 +3,8 @@ class TasksController < ApplicationController
     # @tasks = Task.all
 
     # ログインしているユーザーに紐づくデータだけを表示
-    @tasks = current_user.tasks
+    # @tasks = current_user.tasks.order(created_at: :desc) # 登録順
+    @tasks = current_user.tasks.recent # 上のscope版
   end
 
   def show

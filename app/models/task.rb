@@ -10,6 +10,10 @@ class Task < ApplicationRecord
   # userに従属していることの関連付け
   belongs_to :user
 
+  # スコープ
+  # recent(最近)という名前で登録
+  scope :recent, -> { order(created_at: :desc) }
+
   private
 
   # カンマではなく名前を検証する
