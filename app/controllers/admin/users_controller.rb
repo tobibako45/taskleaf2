@@ -46,4 +46,11 @@ class Admin::UsersController < ApplicationController
   def users_params
     params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)
   end
+
+  # 管理権限を持っているユーザーか？
+  def require_admin
+    redirect_to root_path unless current_user.admin?
+  end
 end
+
+# User.create!(name: 'ore', email: 'test@test.com', password: 'password', password_confirmation: 'password', admin: true)
