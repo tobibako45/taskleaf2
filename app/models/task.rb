@@ -14,10 +14,10 @@ class Task < ApplicationRecord
     # カンマが含まれているかをinclude?でチェック。
     # &.でnameがnilのときには検証が通る(errors.addしない)ようにしている
     errors.add(:name, 'カンマを含めることはできません') if name&.include?(',')
-
-    # include? 含まれるときはtrue、含まれないときはfalse
-    # &. ぼっち演算子 xxxがnilでないときにメソッドyyyを呼び出す。
   end
+
+  # include? 含まれるときはtrue、含まれないときはfalse
+  # &. ぼっち演算子 xxxがnilでないときにメソッドyyyを呼び出す。
 
 end
 
