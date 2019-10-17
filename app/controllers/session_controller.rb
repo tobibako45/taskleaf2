@@ -1,4 +1,7 @@
 class SessionController < ApplicationController
+  # application_controllerに設定してあるフィルタlogin_requiredをskipするため
+  skip_before_action :login_required
+
   def new
   end
 
