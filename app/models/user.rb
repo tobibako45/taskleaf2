@@ -6,4 +6,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
+
+  # 子分的な存在が複数いることの関連付け
+  has_many :tasks
 end
