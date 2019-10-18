@@ -12,10 +12,10 @@ table.table.table-hover
       td= @task.name
     tr
       th= Task.human_attribute_name(:description)
-      td= simple_format(h(@task.description), {}, sanitize: false, wrapper_tag: "div")
+      / td= simple_format(h(@task.description), {}, sanitize: false, wrapper_tag: "div")
+      / auto_link版
+      td= auto_link(simple_format(h(@task.description), {}, sanitize: false, wrapper_tag: "div"))
 
-    / auto_link版
-    / td= auto_link(simple_format(h(@task.description), {}, sanitize: false, wrapper_tag: "div"))
     / tr
     /   / 画像
     /   th= Task.human_attribute_name(:image)
