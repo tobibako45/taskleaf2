@@ -1,4 +1,8 @@
 class TasksController < ApplicationController
+  # @tasks = current_user.tasks.find(params[:id])を、privateメソッドのset_taskにまとめてDRYに。
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+
+
   def index
     # @tasks = Task.all
 
@@ -11,7 +15,7 @@ class TasksController < ApplicationController
     # @task = Task.find(params[:id])
 
     # ログインしているユーザーに紐づくデータだけを表示
-    @tasks = current_user.tasks.find(params[:id])
+    # @task = current_user.tasks.find(params[:id])    # privateのset_taskでDRYにしてbefore_actionに設定
   end
 
   def new
@@ -39,25 +43,27 @@ class TasksController < ApplicationController
     # @task = Task.find(params[:id])
 
     # ログインしているユーザーに紐づくデータだけを表示
-    @task = current_user.tasks.find(params[:id])
+    # @task = current_user.tasks.find(params[:id])    # privateのset_taskでDRYにしてbefore_actionに設定
   end
 
   def update
     # task = Task.find(params[:id])
 
-    # ログインしているユーザーに紐づくデータだけを検索
-    task = current_user.tasks.find(params[:id])
-    task.update!(task_params)
-    redirect_to tasks_url, notice: "タスク「#{task.name}」を更新しました。"
+    # ログインしているユーザーに紐づくデータだけを表示
+    # @task = current_user.tasks.find(params[:id])    # privateのset_taskでDRYにしてbefore_actionに設定
+
+    @task.update!(task_params)
+    redirect_to tasks_url, notice: "タスク「#{@task.name}」を更新しました。"
   end
 
   def destroy
     # task = Task.find(params[:id])
 
-    # ログインしているユーザーに紐づくデータだけを検索
-    task = current_user.tasks.find(params[:id])
-    task.destroy
-    redirect_to tasks_url, notice: "タスク「#{task.name}」を削除しました。"
+    # ログインしているユーザーに紐づくデータだけを表示
+    # @task = current_user.tasks.find(params[:id])    # privateのset_taskでDRYにしてbefore_actionに設定
+
+    @task.destroy
+    redirect_to tasks_url, notice: "タスク「#{@task.name}」を削除しました。"
   end
 
   private
@@ -65,4 +71,11 @@ class TasksController < ApplicationController
   def task_params
     params.require(:task).permit(:name, :description)
   end
+
+  # taskの設定をDRYに
+  def set_task
+    @task = current_user.tasks.find(params[:id])
+  end
+
+
 end
