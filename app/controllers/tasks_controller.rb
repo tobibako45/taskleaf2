@@ -22,16 +22,6 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
-  # def create
-  #   @task = current_user.tasks.new(task_params)
-  #
-  #   if @task.save
-  #     redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
-  #   else
-  #     render :new
-  #   end
-  # end
-
   def create
     # @task = Task.new(task_params)
 
@@ -43,6 +33,25 @@ class TasksController < ApplicationController
 
     # if @task.save! だとテストが通らない！ダメなら例外を発生させる
     if @task.save # ダメならnilを返す
+
+      ###### ロガー #######
+
+      # loggerオブジェクトのdebugメソッドを呼び、ログにタスク情報をdebugレベルで出力する
+      logger.debug "これが自分で出したログね。task: #{@task.attributes.inspect}"
+
+      # デバッグ用に、保存したタスクの情報をログに出力させたい場合。
+      # logger.debug "タスク： #{@task.attributes.inspect}"
+      # log/developments.log に出力
+      logger.debug 'logger に出力'
+      # logger.formatter.debug
+
+      # log/custom.log に出力。なければ作成。
+      Rails.application.config.custom_logger.debug 'custom_logger にも出力してる'
+
+      # taskに関するログだけを専用ファイルに出力
+      task_logger.debug 'taskのログを出力'
+
+
       redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました。"
     else
       render :new
@@ -87,5 +96,9 @@ class TasksController < ApplicationController
     @task = current_user.tasks.find(params[:id])
   end
 
+  # オリジナルのロガー taskに関するログだけファイル出力
+  def task_logger
+    @task_logger ||= Logger.new('log/task.log', 'daily')
+  end
 
 end
