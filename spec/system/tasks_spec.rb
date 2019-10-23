@@ -70,4 +70,39 @@ describe 'タスク管理機能', type: :system do
 
   end
 
+
+
+
+  describe '新規作成機能' do
+    let(:login_user) { user_a }
+
+    before do
+      visit new_task_path
+      # ログインするユーザーを変えたのと同様に、task_nameというletを利用して、
+      # 続く２つのcontextでの違い(名称を入力するか？しないか？)を吸収する。
+      fill_in '名称', with: task_name
+      click_button '確認'
+    end
+
+    context '新規作成画面で名称を入力したとき' do
+      let(:task_name) { '新規作成のテストを書く' }
+
+      it '正常に登録される' do
+        # have_selector HTML内の特定のセレクタ(CSSセレクタ)で指定することができる
+        expect(page).to have_selector '.alert-success', text: '新規作成のテストを書く'
+      end
+    end
+
+    context '新規作成画面で名称を入力しなかったとき' do
+      let(:task_name) { '' }
+
+      it 'エラーとなる' do
+        # within withinブロックの中でpageの内容を検査することで、探索する範囲を画面内の特定の範囲に狭める。
+        within '#error_explanation' do
+          expect(page).to have_content '名称を入力してください'
+        end
+      end
+    end
+  end
+
 end

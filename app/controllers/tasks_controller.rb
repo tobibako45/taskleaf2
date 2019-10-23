@@ -22,6 +22,16 @@ class TasksController < ApplicationController
     @task = Task.new
   end
 
+  # def create
+  #   @task = current_user.tasks.new(task_params)
+  #
+  #   if @task.save
+  #     redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
+  #   else
+  #     render :new
+  #   end
+  # end
+
   def create
     # @task = Task.new(task_params)
 
@@ -31,12 +41,12 @@ class TasksController < ApplicationController
     # 関連を利用して記述。こっちが良い
     @task = current_user.tasks.new(task_params)
 
-    if @task.save!
+    # if @task.save! だとテストが通らない！ダメなら例外を発生させる
+    if @task.save # ダメならnilを返す
       redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました。"
     else
       render :new
     end
-
   end
 
   def edit
