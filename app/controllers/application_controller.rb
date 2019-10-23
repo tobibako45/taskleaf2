@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+
+
+
   # helper_method指定することで、すべてのビューからも使える。コントローラー内のメソッドをビュー内から呼びたい時とかに使う
   helper_method :current_user
   # アクション前に呼ばれるbefore_actionメソッドに登録。今回はonlyは指定せず、すべてのアクションに対して有効
@@ -18,4 +21,10 @@ class ApplicationController < ActionController::Base
   def login_required
     redirect_to login_path unless current_user
   end
+
+  # ログインしていなければ日本語
+  def set_locale
+    I18n.locale = current_user&.locale || :ja
+  end
+
 end
