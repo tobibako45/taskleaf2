@@ -18,15 +18,25 @@ describe 'タスク管理機能', type: :system do
     click_button 'ログインする'
   end
 
+
+  # shared_exampls
+  shared_examples_for 'ユーザーAが作成したタスクが表示される' do # 「ユーザーAが作成したタスクが表示される」で定義。この名前で参照される
+    it { expect(page).to have_content '最初のタスク' }
+  end
+
+
   describe '一覧表示機能' do
 
     context 'ユーザーAがログインしているとき' do
       # login_userを定義
       let(:login_user) { user_a }
 
-      it 'ユーザーAが作成したタスクが表示される' do
-        expect(page).to have_content '最初のタスク'
-      end
+      # it 'ユーザーAが作成したタスクが表示される' do
+      #   expect(page).to have_content '最初のタスク'
+      # end
+
+      # 上記をこれに置き換え
+      it_behaves_like 'ユーザーAが作成したタスクが表示される'
     end
 
     context 'ユーザーBがログインしているとき' do
@@ -49,9 +59,13 @@ describe 'タスク管理機能', type: :system do
         visit task_path(task_a)
       end
 
-      it 'ユーザーAが作成したタスクが表示される' do
-        expect(page).to have_content '最初のタスク'
-      end
+      # it 'ユーザーAが作成したタスクが表示される' do
+      #   expect(page).to have_content '最初のタスク'
+      # end
+
+      # 上記をこれに置き換え
+      # it_behaves_like 'ユーザーAが作成したタスクが表示されるるるる' # これだとerror
+      it_behaves_like 'ユーザーAが作成したタスクが表示される'
     end
 
   end
