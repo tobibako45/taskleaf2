@@ -1,6 +1,9 @@
 class Task < ApplicationRecord
-  validates :name, presence: true
-  validates :name, length: {maximum: 30}
+  # validates :name, presence: true
+  # validates :name, length: {maximum: 30}
+
+  # 一行で
+  # validates :name, presence: true, length: {maximum: 30} # Specを失敗させるためコメントアウト
 
   # 検証用メソッド「validate_name_not_including_comma」という名前にして、
   # それをvalidateというクラスメソッドに渡すことにより、
