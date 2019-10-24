@@ -13,7 +13,10 @@ class TasksController < ApplicationController
     # 検索ransack
     @q = current_user.tasks.ransack(params[:q])
     # @tasks = @q.result(distinct: true).recent
-    @tasks = @q.result(distinct: true) # ransackでソートさせるため、recentスコープを取り除く
+    # @tasks = @q.result(distinct: true) # ransackでソートさせるため、recentスコープを取り除く
+
+    # ページネーション kaminari
+    @tasks = @q.result(distinct: true).page(params[:page])
   end
 
   def show

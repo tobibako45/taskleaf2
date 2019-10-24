@@ -36,6 +36,8 @@ gem 'bootstrap'
 gem 'rails_autolink'
 # # 検索フォーム
 gem 'ransack'
+# ページネーション
+gem 'kaminari'
 
 
 group :development, :test do
