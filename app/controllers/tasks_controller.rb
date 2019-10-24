@@ -53,6 +53,16 @@ class TasksController < ApplicationController
       # deliver_nowは、即時送信を行うメソッド
       TaskMailer.creation_email(@task).deliver_now
 
+      # ジョブの呼び出し
+      # perform_laterメソッドを用いて、作ったジョブを非同期に実行させてる。
+      SampleJob.perform_later
+
+      # 5.times do
+      #   SampleJob.set(wait: 5.seconds).perform_later
+      #   # HighPriorityJob.set(wait: 5.seconds).perform_later
+      # end
+
+
       # deliver_laterメソッドが5分後に送信する。非同期にメール送信を行う。
       # TaskMailer.creation_email(@task).deliver_later(wait: 5.minutes)
 

@@ -64,7 +64,6 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-
   # 一日ごとにログを取る設定（過去ログはyyymmddがつく）
   config.logger = Logger.new('log/development.log', 'daily')
   # 用途に合わせてログファイルを分ける（週ごとのログを取る）
