@@ -1,4 +1,14 @@
 class Task < ApplicationRecord
+
+  # 検索カラムの絞り込み
+  # ransackable_attributesに検索するカラムを指定する。
+  # ransackable_attributesはデフォルトでは、すべてのカラムが対象なので、オーバーライドして絞り込む
+  def self.ransackable_attributes(auth_object = nil)
+    # パーセント記法 %wで配列を作る。配列の要素はスペース区切りで指定する。式の展開はされない。
+    %w[name created_at] # => ["name", "created_at"]
+  end
+
+
   # validates :name, presence: true
   # validates :name, length: {maximum: 30}
 
