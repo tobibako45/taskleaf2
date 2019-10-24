@@ -31,6 +31,14 @@ class TasksController < ApplicationController
     # 関連を利用して記述。こっちが良い
     @task = current_user.tasks.new(task_params)
 
+
+    # 戻るボタンの対応
+    # params[:back]は「戻るボタン」のname
+    if params[:back].present?
+      render :new
+      return
+    end
+
     # if @task.save! だとテストが通らない！ダメなら例外を発生させる
     if @task.save # ダメならnilを返す
 
@@ -52,11 +60,24 @@ class TasksController < ApplicationController
       task_logger.debug 'taskのログを出力'
 
 
-      redirect_to tasks_url, notice: "タスク「#{@task.name}」を登録しました。"
+      redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
     else
       render :new
     end
   end
+
+  # 確認画面
+  def confirm_new
+    # 新規登録画面からparameterを元に、current_userのtaskオブジェクトを作成して代入
+    @task = current_user.tasks.new(task_params)
+    # unlessで、taskオブジェクトがなければ、new(新規登録画面)に戻す。
+    render :new unless @task.valid? # .valid? バリデーションが実行。通ればtrue。invalid?は逆
+  end
+
+
+
+
+
 
   def edit
     # @task = Task.find(params[:id])
