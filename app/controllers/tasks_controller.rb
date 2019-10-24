@@ -12,7 +12,8 @@ class TasksController < ApplicationController
 
     # 検索ransack
     @q = current_user.tasks.ransack(params[:q])
-    @tasks = @q.result(distinct: true).recent
+    # @tasks = @q.result(distinct: true).recent
+    @tasks = @q.result(distinct: true) # ransackでソートさせるため、recentスコープを取り除く
   end
 
   def show
