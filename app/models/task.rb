@@ -1,4 +1,7 @@
 class Task < ApplicationRecord
+  # has_one_attachedメソッドを使って、
+  # １つのタスクに１つの画像を紐付けること、その画像をTaskモデルからimageと呼ぶこと、を指定している
+  has_one_attached :image
 
   # 検索カラムの絞り込み
   # ransackable_attributesに検索するカラムを指定する。
