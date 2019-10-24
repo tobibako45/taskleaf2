@@ -74,4 +74,7 @@ Rails.application.configure do
     "#{timestamp} :#{severity}: #{message}：フォーマットしたよ\n"
   }
 
+  # railsとsidekiqを連携させるための設定
+  config.active_job.queue_adapter = :sidekiq
+
 end

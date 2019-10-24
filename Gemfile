@@ -38,6 +38,8 @@ gem 'rails_autolink'
 gem 'ransack'
 # ページネーション
 gem 'kaminari'
+# 非同期処理を行うツール
+gem 'sidekiq'
 
 
 group :development, :test do
