@@ -8,7 +8,11 @@ class TasksController < ApplicationController
 
     # ログインしているユーザーに紐づくデータだけを表示
     # @tasks = current_user.tasks.order(created_at: :desc) # 登録順
-    @tasks = current_user.tasks.recent # 上のscope版
+    # @tasks = current_user.tasks.recent # 上のscope版
+
+    # 検索ransack
+    @q = current_user.tasks.ransack(params[:q])
+    @tasks = @q.result(distinct: true).recent
   end
 
   def show

@@ -31,8 +31,12 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'slim-rails'
 gem 'html2slim'
 gem 'bootstrap'
-gem 'rails_autolink'
 # gem 'rinku'
+# # 文字列中のURLにリンクを貼りたい
+gem 'rails_autolink'
+# # 検索フォーム
+gem 'ransack'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
