@@ -7,7 +7,7 @@ class TaskMailer < ApplicationMailer
     @task = task # テンプレートで利用したいので、インスタンス変数に
     # mailメソッドでメールの作成・送信
     mail(
-      subject: 'タスク制作完了メール',
+      subject: 'タスク作成完了メール',
       to: 'user@example.com',
       from: 'taskleaf2@example.com'
     )
