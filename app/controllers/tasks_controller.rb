@@ -36,7 +36,6 @@ class TasksController < ApplicationController
     # 関連を利用して記述。こっちが良い
     @task = current_user.tasks.new(task_params)
 
-
     # 戻るボタンの対応
     # params[:back]は「戻るボタン」のname
     if params[:back].present?
@@ -47,23 +46,30 @@ class TasksController < ApplicationController
     # if @task.save! だとテストが通らない！ダメなら例外を発生させる
     if @task.save # ダメならnilを返す
 
-      ###### ロガー #######
+      # メール送信
+      # deliver_nowは、即時送信を行うメソッド
+      TaskMailer.creation_email(@task).deliver_now
 
+      # deliver_laterメソッドが5分後に送信する。非同期にメール送信を行う。
+      # TaskMailer.creation_email(@task).deliver_later(wait: 5.minutes)
+
+
+      ############# ロガー ##############
       # loggerオブジェクトのdebugメソッドを呼び、ログにタスク情報をdebugレベルで出力する
-      logger.debug "これが自分で出したログね。task: #{@task.attributes.inspect}"
+      # logger.debug "これが自分で出したログね。task: #{@task.attributes.inspect}"
 
       # デバッグ用に、保存したタスクの情報をログに出力させたい場合。
       # logger.debug "タスク： #{@task.attributes.inspect}"
       # log/developments.log に出力
-      logger.debug 'logger に出力'
+      # logger.debug 'logger に出力'
       # logger.formatter.debug
 
       # log/custom.log に出力。なければ作成。
-      Rails.application.config.custom_logger.debug 'custom_logger にも出力してる'
+      # Rails.application.config.custom_logger.debug 'custom_logger にも出力してる'
 
       # taskに関するログだけを専用ファイルに出力
-      task_logger.debug 'taskのログを出力'
-
+      # task_logger.debug 'taskのログを出力'
+      ##########################################
 
       redirect_to @task, notice: "タスク「#{@task.name}」を登録しました。"
     else
