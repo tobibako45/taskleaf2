@@ -39,7 +39,7 @@ gem 'ransack'
 # ページネーション
 gem 'kaminari'
 # 非同期処理を行うツール
-gem 'sidekiq', '5.1.3' # このversionでないと動かなかった。
+gem 'sidekiq', '6.4.0' # このversionでないと動かなかった。
 
 
 group :development, :test do
